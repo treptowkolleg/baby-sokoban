@@ -20,7 +20,7 @@ import sokoban
 #s = sokoban.World("s0596553a")
 # using seed: s0596553a moves: RRDLLLLLLLLLLLLLDLUUUU
 
-#s = sokoban.World("s0596553b")
+s = sokoban.World("s0596553b")
 # using seed: s0596553b moves: RRRRRRRRRRRRRRRRDDDDDLLLLLLULDDDD
 
 #s = sokoban.World("s0596553c")
@@ -39,7 +39,7 @@ import sokoban
 #s = sokoban.World("s0596553g")
 # using seed: s0596553g moves: DDDDDDDDDDDLLLLLLLLLLLLLLLLLLUUUUUUUUUUUUUU
 
-s = sokoban.World("s0596553h")
+#s = sokoban.World("s0596553h")
 # using seed: s0596553h moves: LLLLLLLLLLLUUUUUURRRRRRDRUUUUUUUU
 
 ### BEGIN fügen sie unter dieser Zeile ihren Code zur Lösung ein.
@@ -50,25 +50,26 @@ BELOW = RIGHT = -1
 HIT = 0
 
 # Funktionen zur relativen Distanzbestimmung.
-def x_distance(source: sokoban.Cell=s.box, target: sokoban.Cell=s.target):
+def x_distance(source: sokoban.Cell=s.box, target: sokoban.Cell=s.target) ->int:
     if source.x - target.x > 0: return LEFT
     if source.x - target.x == 0: return HIT
     if source.x - target.x < 0: return RIGHT
 
-def y_distance(source: sokoban.Cell=s.box, target: sokoban.Cell=s.target):
+def y_distance(source: sokoban.Cell=s.box, target: sokoban.Cell=s.target) ->int:
     if source.y - target.y > 0: return ABOVE
     if source.y - target.y == 0: return HIT
     if source.y - target.y < 0: return BELOW
 
 # Überprüfen, ob Spiel überhaupt gewonnen werden kann.
-def unwinnable():
+def unwinnable() ->bool:
     if y_distance() == ABOVE and s.box.y == s.SIZE-1: return True
     if y_distance() == BELOW and s.box.y == 0: return True
     if x_distance() == LEFT and s.box.x == s.SIZE-1: return True
     if x_distance() == RIGHT and s.box.x == 0: return True
     return False
 
-# Einmaliger Aufruf:
+## Einmaliger Aufruf:
+# Prüfen, ob Welt unlösbar ist
 if unwinnable():
     print("Spiel kann nicht gewonnen werden!")
     font = pygame.font.SysFont(None, 100)
@@ -80,20 +81,24 @@ if unwinnable():
     print(".")
     exit(0)
 
+# Spieler ausrücken, wenn auf einer Spalte mit Box
 if x_distance(s.me, s.box) == HIT:
     if s.me.x > 0:
         s.left()
     else:
         s.right()
+
+# Spieler ausrücken, wenn in einer Zeile mit Box
 if y_distance(s.me, s.box) == HIT:
     if s.me.y > 0:
         s.up()
     else:
         s.down()
 
-# Schleife, bis Spiel gewonnen ist:
+## Schleife, bis Spiel gewonnen ist:
 while not s.winning():
 
+    # Aufholen L/R
     while True:
         if x_distance() == LEFT:
             if s.me.x - s.box.x > LEFT: s.left()
@@ -105,11 +110,13 @@ while not s.winning():
             if s.me.x - s.box.x == RIGHT: break
         if x_distance() == HIT: break
 
+    # Aufholen U/D
     while True:
         if s.me.y - s.box.y > HIT: s.up()
         if s.me.y - s.box.y < HIT: s.down()
         if s.me.y - s.box.y == HIT: break
 
+    # Schub der Box L/R
     while True:
         if s.box.x - s.target.x > HIT: s.left()
         if s.box.x - s.target.x < HIT: s.right()
@@ -121,11 +128,13 @@ while not s.winning():
     if x_distance(s.me,s.box) == LEFT: s.left()
     if x_distance(s.me,s.box) == RIGHT: s.right()
 
+    # Aufholen L/R (falls nötig)
     while True:
         if s.me.x - s.box.x > HIT: s.left()
         if s.me.x - s.box.x < HIT: s.right()
         if s.me.x - s.box.x == HIT: break
 
+    # Schub der Box U/D
     while True:
         if y_distance(s.box, s.target) == ABOVE: s.up()
         if y_distance(s.box, s.target) == BELOW: s.down()
