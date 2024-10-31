@@ -14,7 +14,7 @@ import sokoban
 #s = sokoban.World("s0123456")
 # using seed: s0123456 moves: RRRRRRUUUUUULLLDLU
 
-s = sokoban.World("s0596553")
+#s = sokoban.World("s0596553")
 # using seed: s0596553 moves: DDDDDDDDRRRRRRRRRRDRUUU
 
 #s = sokoban.World("s0596553a")
@@ -33,7 +33,7 @@ s = sokoban.World("s0596553")
 #s = sokoban.World("s0596553e")
 # using seed: s0596553e moves: URRDLLLLULD
 
-#s = sokoban.World("s0596553f")
+s = sokoban.World("s0596553f")
 # using seed: s0596553f moves: RRRRRRRRDDDRRRRRRRRRURDDDDDDDDDDDDD
 
 #s = sokoban.World("s0596553g")
@@ -62,9 +62,13 @@ def y_distance(source: sokoban.Cell=s.box, target: sokoban.Cell=s.target) ->int:
 
 # Überprüfen, ob Spiel überhaupt gewonnen werden kann.
 def unwinnable() ->bool:
+    # Box ist am unteren Rand, Ziel ist jedoch oberhalb Box
     if y_distance() == ABOVE and s.box.y == s.SIZE-1: return True
+    # Box ist am oberen Rand, Ziel ist jedoch unterhalb Box
     if y_distance() == BELOW and s.box.y == 0: return True
+    # Box ist am rechten Rand, Ziel ist jedoch links von Box
     if x_distance() == LEFT and s.box.x == s.SIZE-1: return True
+    # Box ist am linken Rand, Ziel ist jedoch rechts von Box
     if x_distance() == RIGHT and s.box.x == 0: return True
     return False
 
