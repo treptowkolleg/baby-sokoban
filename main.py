@@ -100,35 +100,54 @@ while not s.winning():
 
     # Aufholen L/R
     while True:
+        # Ziel ist links von Box
         if x_distance() == LEFT:
+            # Spieler nach links bewegen, wenn Box weiter links von Spieler
             if s.me.x - s.box.x > LEFT: s.left()
+            # Spieler nach rechts bewege, wenn Box weniger links (also rechts) von Spieler
             if s.me.x - s.box.x < LEFT: s.right()
+            # Spieler nicht mehr bewegen, wenn Box genau links neben Spieler
             if s.me.x - s.box.x == LEFT: break
+        # Ziel ist rechts von Box
         if x_distance() == RIGHT:
+            # Spieler nach links bewegen, wenn Box weiter links von Spieler
             if s.me.x - s.box.x > RIGHT: s.left()
+            # Spieler nach rechts bewegen, wenn Box weniger links (also rechts) von Spieler
             if s.me.x - s.box.x < RIGHT: s.right()
+            # Spieler nicht mehr bewegen, wenn Box genau rechts neben Spieler
             if s.me.x - s.box.x == RIGHT: break
+        # Ziel ist über oder unter Box
         if x_distance() == HIT: break
 
     # Aufholen U/D
     while True:
+        # Wenn Spieler unterhalb Box
         if s.me.y - s.box.y > HIT: s.up()
+        # Wenn Spieler oberhalb Box
         if s.me.y - s.box.y < HIT: s.down()
+        # Spieler anhalten, wenn auf gleicher Höhe mit Box
         if s.me.y - s.box.y == HIT: break
 
     # Schub der Box L/R
     while True:
+        # Wenn Box rechts von Ziel
         if s.box.x - s.target.x > HIT: s.left()
+        # Wenn Box links von Ziel
         if s.box.x - s.target.x < HIT: s.right()
+        # Wenn Box ober- oder unterhalb von Ziel
         if s.box.x - s.target.x == HIT: break
 
     # Um die Ecke laufen:
+    # Spieler nach unten bewegen, Ziel oberhalb Box
     if y_distance() == ABOVE: s.down()
+    # Spieler nach oben bewegen, Ziel unterhalb Box
     if y_distance() == BELOW: s.up()
+    # Spieler nach links bewegen, wenn Box links von Spieler
     if x_distance(s.me,s.box) == LEFT: s.left()
+    # Spieler nach rechts bewegen, wenn Box rechts von Spieler
     if x_distance(s.me,s.box) == RIGHT: s.right()
 
-    # Aufholen L/R (falls nötig)
+    # Zur Box aufholen L/R (falls nötig)
     while True:
         if s.me.x - s.box.x > HIT: s.left()
         if s.me.x - s.box.x < HIT: s.right()
@@ -136,8 +155,11 @@ while not s.winning():
 
     # Schub der Box U/D
     while True:
+        # Wenn Ziel oberhalb von Box, Spieler nach oben bewegen
         if y_distance(s.box, s.target) == ABOVE: s.up()
+        # Wenn Ziel unterhalb von Box, Spieler nach unten bewegen
         if y_distance(s.box, s.target) == BELOW: s.down()
+        # Wenn Box auf Höhe von Ziel, Spieler stoppen
         if y_distance(s.box, s.target) == HIT: break
 
 ### END
