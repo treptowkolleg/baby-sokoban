@@ -105,21 +105,15 @@ while not s.winning():
             if s.me.x - s.box.x == RIGHT: break
         if x_distance() == HIT: break
 
-
-
     while True:
         if s.me.y - s.box.y > HIT: s.up()
         if s.me.y - s.box.y < HIT: s.down()
         if s.me.y - s.box.y == HIT: break
 
-
-
     while True:
         if s.box.x - s.target.x > HIT: s.left()
         if s.box.x - s.target.x < HIT: s.right()
         if s.box.x - s.target.x == HIT: break
-
-
 
     # Um die Ecke laufen:
     if y_distance() == ABOVE: s.down()
