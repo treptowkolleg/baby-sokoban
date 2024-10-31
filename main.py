@@ -138,9 +138,9 @@ while not s.winning():
         if s.box.x - s.target.x == HIT: break
 
     # Um die Ecke laufen:
-    # Spieler nach unten bewegen, Ziel oberhalb Box
+    # Spieler nach unten bewegen, wenn Ziel oberhalb Box
     if y_distance() == ABOVE: s.down()
-    # Spieler nach oben bewegen, Ziel unterhalb Box
+    # Spieler nach oben bewegen, wenn Ziel unterhalb Box
     if y_distance() == BELOW: s.up()
     # Spieler nach links bewegen, wenn Box links von Spieler
     if x_distance(s.me,s.box) == LEFT: s.left()
@@ -149,7 +149,9 @@ while not s.winning():
 
     # Zur Box aufholen L/R (falls nötig)
     while True:
+        # Wenn Spieler rechts von Box
         if s.me.x - s.box.x > HIT: s.left()
+        # Wenn Spieler links von Box
         if s.me.x - s.box.x < HIT: s.right()
         if s.me.x - s.box.x == HIT: break
 
