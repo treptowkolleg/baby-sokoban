@@ -11,7 +11,7 @@ import sokoban
  
 # Die hier angegebene Matrikelnummer erzeugt nur meine Referenzwelt die auch in der Doku verwendet wird, bitte ändern.
 
-#s = sokoban.World("s0123456")
+s = sokoban.World("s0123456")
 # using seed: s0123456 moves: RRRRRRUUUUUULLLDLU
 
 #s = sokoban.World("s0596553")
@@ -33,7 +33,7 @@ import sokoban
 #s = sokoban.World("s0596553e")
 # using seed: s0596553e moves: URRDLLLLULD
 
-s = sokoban.World("s0596553f")
+#s = sokoban.World("s0596553f")
 # using seed: s0596553f moves: RRRRRRRRDDDRRRRRRRRRURDDDDDDDDDDDDD
 
 #s = sokoban.World("s0596553g")
