@@ -14,7 +14,7 @@ import sokoban
 #s = sokoban.World("s0123456")
 # using seed: s0123456 moves: RRRRRRUUUUUULLLDLU
 
-#s = sokoban.World("s0596553")
+s = sokoban.World("s0596553")
 # using seed: s0596553 moves: DDDDDDDDRRRRRRRRRRDRUUU
 
 #s = sokoban.World("s0596553a")
@@ -33,7 +33,7 @@ import sokoban
 #s = sokoban.World("s0596553e")
 # using seed: s0596553e moves: URRDLLLLULD
 
-s = sokoban.World("s0596553f")
+#s = sokoban.World("s0596553f")
 # using seed: s0596553f moves: RRRRRRRRDDDRRRRRRRRRURDDDDDDDDDDDDD
 
 #s = sokoban.World("s0596553g")
@@ -78,7 +78,6 @@ if unwinnable():
     s.screen.get_width() // 2 - text.get_width() // 2, s.screen.get_height() // 2 - text.get_height() // 2))
     pygame.display.flip()
     pygame.time.delay(3000)
-    print(".")
     exit(0)
 
 # Spieler ausrücken, wenn auf einer Spalte mit Box
