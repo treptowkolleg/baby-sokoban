@@ -1,5 +1,7 @@
 ### Diese Datei main.py soll bearbeitet (editiert) werden.
 ### Wenn für die Lösung einer Übungsaufgabe eine Datei abgegeben werden soll, dann diese!
+import pygame
+from pygame.time import delay
 
 import sokoban
 
@@ -13,29 +15,29 @@ import sokoban
 #s = sokoban.World("s0123456")
 # using seed: s0123456 moves: RRRRRRUUUUUULLLDLU
 
-# s = sokoban.World("s0596553")
+#s = sokoban.World("s0596553")
 # using seed: s0596553 moves: DDDDDDDDRRRRRRRRRRDRUUU
 
-# s = sokoban.World("s0596553a")
+#s = sokoban.World("s0596553a")
 # using seed: s0596553a moves: RRDLLLLLLLLLLLLLDLUUUU
 
-# s = sokoban.World("s0596553b")
+#s = sokoban.World("s0596553b")
 # using seed: s0596553b moves: RRRRRRRRRRRRRRRRDDDDDLLLLLLULDDDD
 
-# s = sokoban.World("s0596553c")
+#s = sokoban.World("s0596553c")
 # using seed: s0596553c moves: LLDDDRRRRRRRDRUUUUUUUU
 
-# s = sokoban.World("s0596553d")
+s = sokoban.World("s0596553d")
 # using seed: s0596553d moves:
 # Spiel kann nicht gewonnen werden!
 
-# s = sokoban.World("s0596553e")
+#s = sokoban.World("s0596553e")
 # using seed: s0596553e moves: URRDLLLLULD
 
-# s = sokoban.World("s0596553f")
+#s = sokoban.World("s0596553f")
 # using seed: s0596553f moves: RRRRRRRRDDDRRRRRRRRRURDDDDDDDDDDDDD
 
-s = sokoban.World("s0596553g")
+#s = sokoban.World("s0596553g")
 # using seed: s0596553g moves: DDDDDDDDDDDLLLLLLLLLLLLLLLLLLUUUUUUUUUUUUUU
 
 #s = sokoban.World("s0596553h")
@@ -61,15 +63,22 @@ def y_distance(source: sokoban.Cell=s.box, target: sokoban.Cell=s.target):
 
 # Überprüfen, ob Spiel überhaupt gewonnen werden kann.
 def unwinnable():
-    if y_distance() == ABOVE and s.box.y == 19: return True
+    if y_distance() == ABOVE and s.box.y == s.SIZE-1: return True
     if y_distance() == BELOW and s.box.y == 0: return True
-    if x_distance() == LEFT and s.box.x == 19: return True
+    if x_distance() == LEFT and s.box.x == s.SIZE-1: return True
     if x_distance() == RIGHT and s.box.x == 0: return True
     return False
 
 # Einmaliger Aufruf:
 if unwinnable():
-    print("\nSpiel kann nicht gewonnen werden!")
+    print("Spiel kann nicht gewonnen werden!")
+    font = pygame.font.SysFont(None, 100)
+    text = font.render("Unlösbar!", True, sokoban.WHITE)
+    s.screen.blit(text, (
+    s.screen.get_width() // 2 - text.get_width() // 2, s.screen.get_height() // 2 - text.get_height() // 2))
+    pygame.display.flip()
+    pygame.time.delay(3000)
+    print(".")
     exit(0)
 
 if x_distance(s.me, s.box) == HIT:
