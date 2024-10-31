@@ -1,7 +1,6 @@
 ### Diese Datei main.py soll bearbeitet (editiert) werden.
 ### Wenn für die Lösung einer Übungsaufgabe eine Datei abgegeben werden soll, dann diese!
 import pygame
-from pygame.time import delay
 
 import sokoban
 
