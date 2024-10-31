@@ -20,7 +20,7 @@ import sokoban
 #s = sokoban.World("s0596553a")
 # using seed: s0596553a moves: RRDLLLLLLLLLLLLLDLUUUU
 
-s = sokoban.World("s0596553b")
+#s = sokoban.World("s0596553b")
 # using seed: s0596553b moves: RRRRRRRRRRRRRRRRDDDDDLLLLLLULDDDD
 
 #s = sokoban.World("s0596553c")
@@ -33,7 +33,7 @@ s = sokoban.World("s0596553b")
 #s = sokoban.World("s0596553e")
 # using seed: s0596553e moves: URRDLLLLULD
 
-#s = sokoban.World("s0596553f")
+s = sokoban.World("s0596553f")
 # using seed: s0596553f moves: RRRRRRRRDDDRRRRRRRRRURDDDDDDDDDDDDD
 
 #s = sokoban.World("s0596553g")
