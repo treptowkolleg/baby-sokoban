@@ -26,7 +26,7 @@ import sokoban
 #s = sokoban.World("s0596553c")
 # using seed: s0596553c moves: LLDDDRRRRRRRDRUUUUUUUU
 
-s = sokoban.World("s0596553d")
+#s = sokoban.World("s0596553d")
 # using seed: s0596553d moves:
 # Spiel kann nicht gewonnen werden!
 
@@ -39,7 +39,7 @@ s = sokoban.World("s0596553d")
 #s = sokoban.World("s0596553g")
 # using seed: s0596553g moves: DDDDDDDDDDDLLLLLLLLLLLLLLLLLLUUUUUUUUUUUUUU
 
-#s = sokoban.World("s0596553h")
+s = sokoban.World("s0596553h")
 # using seed: s0596553h moves: LLLLLLLLLLLUUUUUURRRRRRDRUUUUUUUU
 
 ### BEGIN fügen sie unter dieser Zeile ihren Code zur Lösung ein.
@@ -105,24 +105,21 @@ while not s.winning():
             if s.me.x - s.box.x == RIGHT: break
         if x_distance() == HIT: break
 
-    # Falls hier schon am Ziel
-    s.winning()
+
 
     while True:
         if s.me.y - s.box.y > HIT: s.up()
         if s.me.y - s.box.y < HIT: s.down()
         if s.me.y - s.box.y == HIT: break
 
-    # Falls hier schon am Ziel
-    s.winning()
+
 
     while True:
         if s.box.x - s.target.x > HIT: s.left()
         if s.box.x - s.target.x < HIT: s.right()
         if s.box.x - s.target.x == HIT: break
 
-    # Falls hier schon am Ziel
-    s.winning()
+
 
     # Um die Ecke laufen:
     if y_distance() == ABOVE: s.down()
