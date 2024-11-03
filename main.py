@@ -3,15 +3,16 @@
 import pygame
 
 import sokoban
+from src.world import World
 
 # Benutzen Sie für die Abgaben Ihre eigene Matrikelnummer.
 # Jede Matrikelnummer erzeugt eine andere Welt.
 # In seltenen Fällen ist ihr Spiel nicht lösbar weil die z.B. Box am Rand steht. 
 # Wenden sie sich in diesem Fall an den Dozenten um eine alternativen Startwert zu erhalten.
- 
+
 # Die hier angegebene Matrikelnummer erzeugt nur meine Referenzwelt die auch in der Doku verwendet wird, bitte ändern.
 
-s = sokoban.World("s0123456")
+#s = sokoban.World("s0123456")
 # using seed: s0123456 moves: RRRRRRUUUUUULLLDLU
 
 #s = sokoban.World("s0596553")
@@ -36,7 +37,7 @@ s = sokoban.World("s0123456")
 #s = sokoban.World("s0596553f")
 # using seed: s0596553f moves: RRRRRRRRDDDRRRRRRRRRURDDDDDDDDDDDDD
 
-#s = sokoban.World("s0596553g")
+s = World("s0596553g")
 # using seed: s0596553g moves: DDDDDDDDDDDLLLLLLLLLLLLLLLLLLUUUUUUUUUUUUUU
 
 #s = sokoban.World("s0596553h")
@@ -50,24 +51,24 @@ BELOW = RIGHT = -1
 HIT = 0
 
 # Funktionen zur relativen Distanzbestimmung.
-def x_distance(source: sokoban.Cell=s.box, target: sokoban.Cell=s.target) ->int:
+def x_distance(source: sokoban.Cell = s.box, target: sokoban.Cell = s.target) -> int:
     if source.x - target.x > 0: return LEFT
     if source.x - target.x == 0: return HIT
     if source.x - target.x < 0: return RIGHT
 
-def y_distance(source: sokoban.Cell=s.box, target: sokoban.Cell=s.target) ->int:
+def y_distance(source: sokoban.Cell = s.box, target: sokoban.Cell = s.target) -> int:
     if source.y - target.y > 0: return ABOVE
     if source.y - target.y == 0: return HIT
     if source.y - target.y < 0: return BELOW
 
 # Überprüfen, ob Spiel überhaupt gewonnen werden kann.
-def unwinnable() ->bool:
+def unwinnable() -> bool:
     # Box ist am unteren Rand, Ziel ist jedoch oberhalb Box
-    if y_distance() == ABOVE and s.box.y == s.SIZE-1: return True
+    if y_distance() == ABOVE and s.box.y == s.SIZE - 1: return True
     # Box ist am oberen Rand, Ziel ist jedoch unterhalb Box
     if y_distance() == BELOW and s.box.y == 0: return True
     # Box ist am rechten Rand, Ziel ist jedoch links von Box
-    if x_distance() == LEFT and s.box.x == s.SIZE-1: return True
+    if x_distance() == LEFT and s.box.x == s.SIZE - 1: return True
     # Box ist am linken Rand, Ziel ist jedoch rechts von Box
     if x_distance() == RIGHT and s.box.x == 0: return True
     return False
@@ -79,7 +80,7 @@ if unwinnable():
     font = pygame.font.SysFont(None, 100)
     text = font.render("Unlösbar!", True, sokoban.WHITE)
     s.screen.blit(text, (
-    s.screen.get_width() // 2 - text.get_width() // 2, s.screen.get_height() // 2 - text.get_height() // 2))
+        s.screen.get_width() // 2 - text.get_width() // 2, s.screen.get_height() // 2 - text.get_height() // 2))
     pygame.display.flip()
     pygame.time.delay(3000)
     exit(0)
@@ -146,9 +147,9 @@ while not s.winning():
     # Spieler nach oben bewegen, wenn Ziel unterhalb Box
     if y_distance() == BELOW: s.up()
     # Spieler nach links bewegen, wenn Box links von Spieler
-    if x_distance(s.me,s.box) == LEFT: s.left()
+    if x_distance(s.me, s.box) == LEFT: s.left()
     # Spieler nach rechts bewegen, wenn Box rechts von Spieler
-    if x_distance(s.me,s.box) == RIGHT: s.right()
+    if x_distance(s.me, s.box) == RIGHT: s.right()
 
     # Zur Box aufholen L/R (falls nötig)
     while True:
