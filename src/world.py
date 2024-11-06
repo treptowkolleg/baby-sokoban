@@ -14,10 +14,13 @@ YELLOW = (255, 255, 0)
 
 class World:
 
+
     SIZE = 20  # cell size in pixels
 
     def __init__(self, seed=None, boxes=2, width=20, height=20):
 
+        pygame.mixer.init()
+        self.bgm2 = pygame.mixer.Sound("./wav/smw_course_clear.wav")
         self.w = width
         self.h = height
         self.boxCount = boxes
@@ -28,6 +31,7 @@ class World:
         self.target: None | Cell = None
         self.target_index: None | int = None
         self.targets = list()
+
 
         if seed is None:
             seed = time.time()
@@ -45,6 +49,7 @@ class World:
     def set_box(self, x=None, y=None):
         for i in range(self.boxCount):
             self.boxes.append(self.set_cell(x, y))
+        random.sample(self.boxes,3)
 
     def set_target(self, x=None, y=None):
         for _ in range(self.boxCount):
@@ -71,7 +76,7 @@ class World:
             self.draw_cell(box, GREEN)
         self.draw_cell(self.me, RED)
         pygame.display.flip()
-        pygame.time.delay(100)
+        pygame.time.delay(50)
 
     def draw_cell(self, cell: Cell, color):
         if cell is not None:
@@ -80,12 +85,14 @@ class World:
     def winning(self):
         if not self.has_target():
             return False
+        pygame.mixer.music.stop()
+        self.bgm2.play()
         font = pygame.font.SysFont(None, 100)
         text = font.render("Winner!", True, WHITE)
         self.screen.blit(text, (
         self.screen.get_width() // 2 - text.get_width() // 2, self.screen.get_height() // 2 - text.get_height() // 2))
         pygame.display.flip()
-        pygame.time.delay(3000)
+        pygame.time.delay(8000)
         print(".")
         return True
 

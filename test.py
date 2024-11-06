@@ -4,11 +4,18 @@ from src import world
 from src.cell import Cell
 from src.world import World
 
-s = World("0123456c",4)
+s = World("0123456f",16,64,36)
 
 ABOVE = LEFT = 1
 BELOW = RIGHT = -1
 HIT = 0
+
+pygame.mixer.init()
+
+target = pygame.mixer.Sound("./wav/smb2_coin.wav")
+stomp = pygame.mixer.Sound("./wav/smw_stomp.wav")
+pygame.mixer.music.load("./wav/POL-final-sacrifice-short.wav")
+pygame.mixer_music.set_volume(0.6)
 
 # Funktionen zur relativen Distanzbestimmung.
 def x_distance(source: Cell, target2: Cell) -> int:
@@ -44,6 +51,8 @@ if unwinnable():
     pygame.display.flip()
     pygame.time.delay(3000)
     exit(0)
+
+pygame.mixer.music.play(-1)
 
 n = 0
 s.get_box(n)
@@ -102,6 +111,7 @@ while not s.winning():
 
             print("Schub")
             # Schub der Box L/R
+            stomp.play()
             while True:
                 print(f"{s.box.x}, {s.target.x}")
                 # Wenn Box rechts von Ziel
@@ -114,13 +124,17 @@ while not s.winning():
             print("Um die Ecke")
             # Um die Ecke laufen:
             # Spieler nach unten bewegen, wenn Ziel oberhalb Box
-            if y_distance(s.box, s.target) == ABOVE: s.down()
+            if y_distance(s.box, s.target) == ABOVE:
+                s.down()
             # Spieler nach oben bewegen, wenn Ziel unterhalb Box
-            if y_distance(s.box, s.target) == BELOW: s.up()
+            if y_distance(s.box, s.target) == BELOW:
+                s.up()
             # Spieler nach links bewegen, wenn Box links von Spieler
-            if x_distance(s.me, s.box) == LEFT: s.left()
+            if x_distance(s.me, s.box) == LEFT:
+                s.left()
             # Spieler nach rechts bewegen, wenn Box rechts von Spieler
-            if x_distance(s.me, s.box) == RIGHT: s.right()
+            if x_distance(s.me, s.box) == RIGHT:
+                s.right()
 
             print("L/R")
             # Zur Box aufholen L/R (falls nötig)
@@ -132,6 +146,7 @@ while not s.winning():
                 if s.me.x - s.box.x == HIT: break
 
             # Schub der Box U/D
+            stomp.play()
             while True:
                 # Wenn Ziel oberhalb von Box, Spieler nach oben bewegen
                 if y_distance(s.box, s.target) == ABOVE: s.up()
@@ -141,5 +156,6 @@ while not s.winning():
                 if y_distance(s.box, s.target) == HIT: break
 
             if s.has_box(s.target):
+                pygame.mixer.Sound.play(target)
                 n += 1
                 break
