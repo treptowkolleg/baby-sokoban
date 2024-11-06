@@ -3,7 +3,6 @@
 import pygame
 
 import sokoban
-from src.world import World
 
 # Benutzen Sie für die Abgaben Ihre eigene Matrikelnummer.
 # Jede Matrikelnummer erzeugt eine andere Welt.
@@ -37,7 +36,7 @@ from src.world import World
 #s = sokoban.World("s0596553f")
 # using seed: s0596553f moves: RRRRRRRRDDDRRRRRRRRRURDDDDDDDDDDDDD
 
-s = World("s0596553g")
+s = sokoban.World("s0596553g")
 # using seed: s0596553g moves: DDDDDDDDDDDLLLLLLLLLLLLLLLLLLUUUUUUUUUUUUUU
 
 #s = sokoban.World("s0596553h")
