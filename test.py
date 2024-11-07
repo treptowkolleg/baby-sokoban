@@ -4,7 +4,7 @@ from src import world
 from src.cell import Cell
 from src.world import World
 
-s = World("0123456f",16,64,36)
+s = World("0123456f",14,64,36)
 
 ABOVE = LEFT = 1
 BELOW = RIGHT = -1
@@ -99,7 +99,6 @@ while not s.winning():
                 # Ziel ist über oder unter Box
                 if x_distance(s.box, s.target) == HIT: break
 
-            print("aufholen")
             # Aufholen U/D
             while True:
                 # Wenn Spieler unterhalb Box
@@ -109,11 +108,9 @@ while not s.winning():
                 # Spieler anhalten, wenn auf gleicher Höhe mit Box
                 if s.me.y - s.box.y == HIT: break
 
-            print("Schub")
             # Schub der Box L/R
             stomp.play()
             while True:
-                print(f"{s.box.x}, {s.target.x}")
                 # Wenn Box rechts von Ziel
                 if s.box.x - s.target.x > HIT: s.left()
                 # Wenn Box links von Ziel
@@ -121,7 +118,6 @@ while not s.winning():
                 # Wenn Box ober- oder unterhalb von Ziel
                 if s.box.x - s.target.x == HIT: break
 
-            print("Um die Ecke")
             # Um die Ecke laufen:
             # Spieler nach unten bewegen, wenn Ziel oberhalb Box
             if y_distance(s.box, s.target) == ABOVE:
@@ -136,9 +132,9 @@ while not s.winning():
             if x_distance(s.me, s.box) == RIGHT:
                 s.right()
 
-            print("L/R")
             # Zur Box aufholen L/R (falls nötig)
             while True:
+                if s.box.x == s.target.x: break;
                 # Wenn Spieler rechts von Box
                 if s.me.x - s.box.x > HIT: s.left()
                 # Wenn Spieler links von Box

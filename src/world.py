@@ -31,6 +31,7 @@ class World:
         self.target: None | Cell = None
         self.target_index: None | int = None
         self.targets = list()
+        self.moves = 0
 
 
         if seed is None:
@@ -85,10 +86,12 @@ class World:
     def winning(self):
         if not self.has_target():
             return False
+        print(self.moves,end='')
         pygame.mixer.music.stop()
         self.bgm2.play()
         font = pygame.font.SysFont(None, 100)
-        text = font.render("Winner!", True, WHITE)
+        string = "Winner! (" + str(self.moves) +  " Moves)"
+        text = font.render(string, True, WHITE)
         self.screen.blit(text, (
         self.screen.get_width() // 2 - text.get_width() // 2, self.screen.get_height() // 2 - text.get_height() // 2))
         pygame.display.flip()
@@ -164,6 +167,7 @@ class World:
         self.target_index = index
 
     def move(self, dx, dy):
+        self.moves += 1
         next = Cell(self.me.x + dx, self.me.y + dy)
         if not self.inside(next):
             return
