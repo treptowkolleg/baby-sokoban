@@ -49,16 +49,19 @@ ABOVE = LEFT = 1
 BELOW = RIGHT = -1
 HIT = 0
 
+
 # Funktionen zur relativen Distanzbestimmung.
 def x_distance(source: sokoban.Cell = s.box, target: sokoban.Cell = s.target) -> int:
     if source.x - target.x > 0: return LEFT
     if source.x - target.x == 0: return HIT
     if source.x - target.x < 0: return RIGHT
 
+
 def y_distance(source: sokoban.Cell = s.box, target: sokoban.Cell = s.target) -> int:
     if source.y - target.y > 0: return ABOVE
     if source.y - target.y == 0: return HIT
     if source.y - target.y < 0: return BELOW
+
 
 # Überprüfen, ob Spiel überhaupt gewonnen werden kann.
 def unwinnable() -> bool:
@@ -71,6 +74,7 @@ def unwinnable() -> bool:
     # Box ist am linken Rand, Ziel ist jedoch rechts von Box
     if x_distance() == RIGHT and s.box.x == 0: return True
     return False
+
 
 ## Einmaliger Aufruf:
 # Prüfen, ob Welt unlösbar ist
