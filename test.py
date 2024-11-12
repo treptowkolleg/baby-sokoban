@@ -23,16 +23,19 @@ stomp = pygame.mixer.Sound("./wav/smw_stomp.wav")
 pygame.mixer.music.load("./wav/POL-final-sacrifice-short.wav")
 pygame.mixer_music.set_volume(0.6)
 
+
 # Funktionen zur relativen Distanzbestimmung.
 def x_distance(source: Cell, target2: Cell) -> int:
     if source.x - target2.x > 0: return LEFT
     if source.x - target2.x == 0: return HIT
     if source.x - target2.x < 0: return RIGHT
 
+
 def y_distance(source: Cell, target2: Cell) -> int:
     if source.y - target2.y > 0: return ABOVE
     if source.y - target2.y == 0: return HIT
     if source.y - target2.y < 0: return BELOW
+
 
 # Überprüfen, ob Spiel überhaupt gewonnen werden kann.
 def unwinnable() -> bool:
@@ -57,6 +60,7 @@ if unwinnable():
     pygame.display.flip()
     pygame.time.delay(3000)
     exit(0)
+
 
 pygame.mixer.music.play(-1)
 
