@@ -4,6 +4,12 @@ from src import world
 from src.cell import Cell
 from src.world import World
 
+# import serial
+# ser = serial.Serial()  # open serial port
+# print(ser.name)         # check which port was really used
+# ser.write(b'hello')     # write a string
+# ser.close()             # close port
+
 s = World("0123456f",14,64,36)
 
 ABOVE = LEFT = 1
