@@ -9,7 +9,7 @@ str_e = "s0596553c" # LLDDDRRRRRRRDRUUUUUUUU
 str_f = "s0596553d" # nicht gewinnbar
 str_g = "s0596553e" # URRDLLLLULD
 str_h = "s0596553f" # RRRRRRRRDDDRRRRRRRRRURDDDDDDDDDDDDD
-str_i = "s0596553g" # Glitch, nach Reparatur: LLLLLLLLLLLLLLLLLDDDDDDDDDDDLUUUUUUUUUUUUUU
+str_i = "s0596553q" # (g) LLLLLLLLLLLLLLLLLDDDDDDDDDDDLUUUUUUUUUUUUUU
 str_j = "s0596553h" # LLLLLLLLLLLUUUUUURRRRRRDRUUUUUUUU
 
 s = sokoban.World(str_i)
@@ -25,6 +25,7 @@ def is_winnable():
     :return: False, wenn Spiel nicht gewonnen werden kann, ansonsten True
     """
     pos = calculate_rel_pos(s.target, s.box)
+    # Noch nicht alle Zustände sind erfasst.
     if pos == ABOVE and s.box.y == s.h - 1: return False
     if pos == BELOW and s.box.y == 0: return False
     if pos == LEFT and s.box.x == s.w - 1: return False
@@ -47,12 +48,16 @@ def calculate_rel_pos(a: sokoban.Cell, b: sokoban.Cell):
     match dx:
         case dx if dx < HIT: output.append(LEFT)
         case dx if dx > HIT: output.append(RIGHT)
-        case _: output.append(HIT)
+        case _:
+            if b.x == 0: output.append(LEFT)
+            else: output.append(RIGHT)
 
     match dy:
         case dy if dy < HIT: output.append(ABOVE)
         case dy if dy > HIT: output.append(BELOW)
-        case _: output.append(HIT)
+        case _:
+            if b.y == 0: output.append(ABOVE)
+            else: output.append(BELOW)
 
     return output
 
@@ -92,6 +97,8 @@ def run_vector(a: sokoban.Cell, b: sokoban.Cell, px: int=HIT, py: int=HIT, turn:
                 dx -= 1
             case _: break
 
+    if s.has_target(s.box): return
+
     if turn:
         match ty:
             case ty if ty < py: s.down()
@@ -99,11 +106,9 @@ def run_vector(a: sokoban.Cell, b: sokoban.Cell, px: int=HIT, py: int=HIT, turn:
         match tx:
             case tx if tx < px: s.left()
             case tx if tx > px: s.right()
-
-        # Beginn, Glitch-Reparatur
-        if s.box.x - s.me.x < HIT: s.left()
-        if s.box.x - s.me.x > HIT: s.right()
-        # Ende, Glitch-Reparatur
+        if dy != 0:
+            if s.box.x - s.me.x < HIT: s.left()
+            if s.box.x - s.me.x > HIT: s.right()
 
     while dy != py:
         match dy:
@@ -116,6 +121,8 @@ def run_vector(a: sokoban.Cell, b: sokoban.Cell, px: int=HIT, py: int=HIT, turn:
             case _: break
 
 
+
+
 # relative Position der Box zum Ziel ermitteln
 target_pos = calculate_rel_pos(s.target, s.box)
 
@@ -124,10 +131,6 @@ step_out()
 
 if is_winnable():
     while not s.winning():
-        # Beginn, Glitch-Reparatur
-        if target_pos[0] == HIT:
-            target_pos[0] = target_pos[0]-1
-        # Ende, Glitch-Reparatur
         run_vector(s.box, s.me, target_pos[0])
         run_vector(s.target, s.box, 0, 0, True)
 
