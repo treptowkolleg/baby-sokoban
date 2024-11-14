@@ -49,19 +49,13 @@ def is_winnable():
     if pos[1] == ABOVE and s.box.y == s.h - 1: return False
     if pos[1] == BELOW and s.box.y == 0: return False
 
-    # Ziel ganz oben:
-    if s.target.y == 0:
+    # Ziel ganz oben oder ganz unten:
+    if s.target.y == 0 or s.target.y == s.h - 1:
         # Box links, Ziel nicht
         if s.box.x == 0 and s.target.x != 0: return False
         # Box rechts, Ziel nicht
         if s.box.x == s.w - 1 and s.target.x != s.w - 1 : return False
 
-    # Ziel ganz unten:
-    if s.target.y == s.h - 1:
-        # Box links, Ziel nicht
-        if s.box.x == 0 and s.target.x != 0: return False
-        # Box rechts, Ziel nicht
-        if s.box.x == s.w - 1 and s.target.x != s.w - 1 : return False
     return True
 
 
