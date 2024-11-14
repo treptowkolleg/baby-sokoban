@@ -15,7 +15,7 @@ str_j = "s0596553h" # LLLLLLLLLLLUUUUUURRRRRRDRUUUUUUUU
 str_k = "s0596553q" # nicht gewinnbar
 
 # World instantiieren
-s = sokoban.World(str_a,40,20)
+s = sokoban.World(str_g,40,20)
 
 # Konstanten zur relativen Bestimmung
 LEFT = ABOVE = -1
@@ -68,13 +68,10 @@ def calculate_rel_pos(a: sokoban.Cell, b: sokoban.Cell):
 
 
 def step_out():
-    rel_pos = calculate_rel_pos(s.box, s.me)
-
-    if rel_pos[0] == HIT:
+    if s.box.x - s.me.x == HIT:
         if s.box.x > 0: s.left()
         else: s.right()
-
-    if rel_pos[1] == HIT:
+    if s.box.y - s.me.y == HIT:
         if s.box.y > 0: s.up()
         else: s.down()
 
@@ -127,6 +124,9 @@ def run_vector(a: sokoban.Cell, b: sokoban.Cell, px: int=HIT, py: int=HIT, turn:
 
 # relative Position der Box zum Ziel ermitteln
 target_pos = calculate_rel_pos(s.target, s.box)
+
+# Kurz warten
+sleep(1)
 
 # Spielablauf starten
 step_out()
