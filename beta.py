@@ -1,4 +1,3 @@
-from unittest import case
 
 import sokoban
 
