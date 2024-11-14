@@ -136,6 +136,5 @@ if is_winnable():
 
 else:
     print("Dieses Spiel kann leider nicht gewonnen werden.", end="")
-    step_out()
     exit(0)
 
