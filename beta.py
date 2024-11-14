@@ -69,6 +69,10 @@ def calculate_rel_pos(a: sokoban.Cell, b: sokoban.Cell):
 
 
 def step_out():
+    """
+    Spieler versetzen, falls in einer Linie mit Box. Erforderlich für Vektorlauf.
+    :return: void
+    """
     if s.box.x - s.me.x == HIT:
         if s.box.x > 0: s.left()
         else: s.right()
