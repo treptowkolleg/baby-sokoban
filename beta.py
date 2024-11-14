@@ -9,8 +9,9 @@ str_e = "s0596553c" # LLDDDRRRRRRRDRUUUUUUUU
 str_f = "s0596553d" # nicht gewinnbar
 str_g = "s0596553e" # URRDLLLLULD
 str_h = "s0596553f" # RRRRRRRRDDDRRRRRRRRRURDDDDDDDDDDDDD
-str_i = "s0596553q" # (g) LLLLLLLLLLLLLLLLLDDDDDDDDDDDLUUUUUUUUUUUUUU
+str_i = "s0596553g" # LLLLLLLLLLLLLLLLLDDDDDDDDDDDLUUUUUUUUUUUUUU
 str_j = "s0596553h" # LLLLLLLLLLLUUUUUURRRRRRDRUUUUUUUU
+str_l = "s0596553q" # nicht gewinnbar
 
 s = sokoban.World(str_i)
 
@@ -31,6 +32,7 @@ def is_winnable():
     if pos == BELOW and s.box.y == 0: return False
     if pos == LEFT and s.box.x == s.w - 1: return False
     if pos == RIGHT and s.box.x == 0: return False
+    if s.target.y == 0 and s.box.x == 0 and s.target.x != 0: return False
     return True
 
 
@@ -131,10 +133,10 @@ step_out()
 if is_winnable():
     while not s.winning():
         run_vector(s.box, s.me, target_pos[0])
-        run_vector(s.target, s.box, 0, 0, True)
-
+        run_vector(s.target, s.box, turn=True)
 
 else:
-    print("Dieses Spiel kann leider nicht gewonnen werden.")
+    print("Dieses Spiel kann leider nicht gewonnen werden.", end="")
+    step_out()
     exit(0)
 
