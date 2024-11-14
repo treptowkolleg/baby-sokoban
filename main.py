@@ -108,7 +108,6 @@ while not s.winning():
 
     # Aufholen L/R
     while True:
-        print(mey)
         # Ziel ist links von Box
         if x_distance() == LEFT:
             # Spieler nach links bewegen, wenn Box weiter links von Spieler
@@ -130,7 +129,6 @@ while not s.winning():
 
     # Aufholen U/D
     while True:
-        print(mey)
         # Wenn Spieler unterhalb Box
         if s.me.y - s.box.y > HIT: s.up()
         # Wenn Spieler oberhalb Box
@@ -140,7 +138,6 @@ while not s.winning():
 
     # Schub der Box L/R
     while True:
-        print(mey)
         # Wenn Box rechts von Ziel
         if s.box.x - s.target.x > HIT: s.left()
         # Wenn Box links von Ziel
@@ -160,7 +157,6 @@ while not s.winning():
 
     # Zur Box aufholen L/R (falls nötig)
     while True:
-        print(mey)
         # Wenn Spieler rechts von Box
         if s.me.x - s.box.x > HIT: s.left()
         # Wenn Spieler links von Box
@@ -169,7 +165,6 @@ while not s.winning():
 
     # Schub der Box U/D
     while True:
-        print(mey)
         # Wenn Ziel oberhalb von Box, Spieler nach oben bewegen
         if y_distance(s.box, s.target) == ABOVE: s.up()
         # Wenn Ziel unterhalb von Box, Spieler nach unten bewegen
