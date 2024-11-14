@@ -34,6 +34,7 @@ def is_winnable():
     if pos == RIGHT and s.box.x == 0: return False
     return True
 
+
 def calculate_rel_pos(a: sokoban.Cell, b: sokoban.Cell):
     """
     Berechnet die relative Position einer Zelle in Bezug auf die Zielzelle.
@@ -58,10 +59,18 @@ def calculate_rel_pos(a: sokoban.Cell, b: sokoban.Cell):
 
     return output
 
+
 def step_out():
     rel_pos = calculate_rel_pos(s.box, s.me)
-    if rel_pos[0] == HIT: s.left()
-    if rel_pos[1] == HIT: s.up()
+
+    if rel_pos[0] == HIT:
+        if s.box.x > 0: s.left()
+        else: s.right()
+
+    if rel_pos[1] == HIT:
+        if s.box.y > 0: s.up()
+        else: s.down()
+
 
 def run_vector(a: sokoban.Cell, b: sokoban.Cell, px: int=HIT, py: int=HIT, turn: bool = False):
     """
@@ -115,6 +124,7 @@ if is_winnable():
     while not s.winning():
         run_vector(s.box, s.me, target_pos[0])
         run_vector(s.target, s.box, 0, 0, True)
+
 
 else:
     print("Dieses Spiel kann leider nicht gewonnen werden.")
