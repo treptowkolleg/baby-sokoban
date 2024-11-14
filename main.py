@@ -2,6 +2,9 @@ from time import sleep
 
 import sokoban
 
+# Spiel auswählen
+game = 0
+
 # Ergebnisse für 20x20-Spielbrett
 seed_list = [
 "s0123456",         #  0 RRRRRRUUUUUULLLDLU
@@ -16,9 +19,6 @@ seed_list = [
 "s0596553h",        #  9 LLLLLLLLLLLUUUUUURRRRRRDRUUUUUUUU
 "s0596553q",        # 10 Dieses Spiel kann leider nicht gewonnen werden
 ]
-
-# Spiel auswählen
-game = 0
 
 # World instantiieren
 s = sokoban.World(seed_list[game])
