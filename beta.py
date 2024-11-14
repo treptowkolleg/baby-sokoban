@@ -16,7 +16,7 @@ str_j = "s0596553h" # LLLLLLLLLLLUUUUUURRRRRRDRUUUUUUUU
 str_k = "s0596553q" # nicht gewinnbar
 
 # World instantiieren
-s = sokoban.World(str_i)
+s = sokoban.World(str_h)
 
 # Konstanten zur relativen Bestimmung
 LEFT = ABOVE = -1
