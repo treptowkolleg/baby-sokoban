@@ -31,10 +31,10 @@ def is_winnable():
     pos = calculate_rel_pos(s.target, s.box)
 
     # Noch nicht alle Zustände sind erfasst.
-    if pos[1] == ABOVE and s.box.y == s.h - 1: return False
-    if pos[1] == BELOW and s.box.y == 0: return False
     if pos[0] == LEFT and s.box.x == s.w - 1: return False
     if pos[0] == RIGHT and s.box.x == 0: return False
+    if pos[1] == ABOVE and s.box.y == s.h - 1: return False
+    if pos[1] == BELOW and s.box.y == 0: return False
     if s.target.y == 0 and s.box.x == 0 and s.target.x != 0: return False
     return True
 
@@ -108,7 +108,7 @@ def run_vector(a: sokoban.Cell, b: sokoban.Cell, px: int=HIT, py: int=HIT, turn:
         if tx < px: s.left()
         if tx > px: s.right()
 
-        if dy != 0:
+        if dy != HIT:
             if s.box.x - s.me.x < HIT: s.left()
             if s.box.x - s.me.x > HIT: s.right()
 
@@ -123,15 +123,17 @@ def run_vector(a: sokoban.Cell, b: sokoban.Cell, px: int=HIT, py: int=HIT, turn:
             case _: break
 
 
+# Spielablauf starten
 # relative Position der Box zum Ziel ermitteln
 target_pos = calculate_rel_pos(s.target, s.box)
 
 # Kurz warten
 sleep(1)
 
-# Spielablauf starten
+# Spieler ggf. versetzen
 step_out()
 
+# Game-Loop / Spielende
 if is_winnable():
     while not s.winning():
         run_vector(s.box, s.me, target_pos[0])
