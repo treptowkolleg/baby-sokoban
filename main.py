@@ -3,20 +3,25 @@ from time import sleep
 import sokoban
 
 # Ergebnisse für 20x20-Spielbrett
-str_a = "s0123456"  # RRRRRRUUUUUULLLDLU
-str_b = "s0596553"  # DDDDDDDDRRRRRRRRRRDRUUU
-str_c = "s0596553a" # RRDLLLLLLLLLLLLLDLUUUU
-str_d = "s0596553b" # RRRRRRRRRRRRRRRRDDDDDLLLLLLULDDDD
-str_e = "s0596553c" # LLDDDRRRRRRRDRUUUUUUUU
-str_f = "s0596553d" # Dieses Spiel kann leider nicht gewonnen werden
-str_g = "s0596553e" # URRDLLLLULD
-str_h = "s0596553f" # RRRRRRRRDDDRRRRRRRRRURDDDDDDDDDDDDD
-str_i = "s0596553g" # LLLLLLLLLLLLLLLLLDDDDDDDDDDDLUUUUUUUUUUUUUU
-str_j = "s0596553h" # LLLLLLLLLLLUUUUUURRRRRRDRUUUUUUUU
-str_k = "s0596553q" # Dieses Spiel kann leider nicht gewonnen werden
+seed_list = [
+"s0123456",         #  0 RRRRRRUUUUUULLLDLU
+"s0596553",         #  1 DDDDDDDDRRRRRRRRRRDRUUU
+"s0596553a",        #  2 RRDLLLLLLLLLLLLLDLUUUU
+"s0596553b",        #  3 RRRRRRRRRRRRRRRRDDDDDLLLLLLULDDDD
+"s0596553c",        #  4 LLDDDRRRRRRRDRUUUUUUUU
+"s0596553d",        #  5 Dieses Spiel kann leider nicht gewonnen werden
+"s0596553e",        #  6 URRDLLLLULD
+"s0596553f",        #  7 RRRRRRRRDDDRRRRRRRRRURDDDDDDDDDDDDD
+"s0596553g",        #  8 LLLLLLLLLLLLLLLLLDDDDDDDDDDDLUUUUUUUUUUUUUU
+"s0596553h",        #  9 LLLLLLLLLLLUUUUUURRRRRRDRUUUUUUUU
+"s0596553q",        # 10 Dieses Spiel kann leider nicht gewonnen werden
+]
+
+# Spiel auswählen
+game = 0
 
 # World instantiieren
-s = sokoban.World(str_a)
+s = sokoban.World(seed_list[game])
 
 # Konstanten zur relativen Bestimmung
 LEFT = ABOVE = -1
