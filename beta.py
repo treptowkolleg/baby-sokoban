@@ -1,3 +1,4 @@
+from time import sleep
 
 import sokoban
 
@@ -13,7 +14,8 @@ str_i = "s0596553g" # LLLLLLLLLLLLLLLLLDDDDDDDDDDDLUUUUUUUUUUUUUU
 str_j = "s0596553h" # LLLLLLLLLLLUUUUUURRRRRRDRUUUUUUUU
 str_l = "s0596553q" # nicht gewinnbar
 
-s = sokoban.World(str_i)
+# World instantiieren
+s = sokoban.World(str_a,40,20)
 
 # Konstanten zur relativen Bestimmung
 LEFT = ABOVE = -1
@@ -28,10 +30,10 @@ def is_winnable():
     pos = calculate_rel_pos(s.target, s.box)
 
     # Noch nicht alle Zustände sind erfasst.
-    if pos == ABOVE and s.box.y == s.h - 1: return False
-    if pos == BELOW and s.box.y == 0: return False
-    if pos == LEFT and s.box.x == s.w - 1: return False
-    if pos == RIGHT and s.box.x == 0: return False
+    if pos[1] == ABOVE and s.box.y == s.h - 1: return False
+    if pos[1] == BELOW and s.box.y == 0: return False
+    if pos[0] == LEFT and s.box.x == s.w - 1: return False
+    if pos[0] == RIGHT and s.box.x == 0: return False
     if s.target.y == 0 and s.box.x == 0 and s.target.x != 0: return False
     return True
 
@@ -136,5 +138,6 @@ if is_winnable():
 
 else:
     print("Dieses Spiel kann leider nicht gewonnen werden.", end="")
+    sleep(3)
     exit(0)
 
