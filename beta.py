@@ -2,6 +2,7 @@ from time import sleep
 
 import sokoban
 
+# Ergebnisse für 20x20-Spielbrett
 str_a = "s0123456"  # RRRRRRUUUUUULLLDLU
 str_b = "s0596553"  # DDDDDDDDRRRRRRRRRRDRUUU
 str_c = "s0596553a" # RRDLLLLLLLLLLLLLDLUUUU
@@ -15,7 +16,7 @@ str_j = "s0596553h" # LLLLLLLLLLLUUUUUURRRRRRDRUUUUUUUU
 str_k = "s0596553q" # nicht gewinnbar
 
 # World instantiieren
-s = sokoban.World(str_g,40,20)
+s = sokoban.World(str_a)
 
 # Konstanten zur relativen Bestimmung
 LEFT = ABOVE = -1
