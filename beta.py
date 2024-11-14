@@ -1,18 +1,19 @@
+from unittest import case
 
 import sokoban
 
-str_a = "s0123456"
-str_b = "s0596553"
-str_c = "s0596553a"
-str_d = "s0596553b"
-str_e = "s0596553c"
-str_f = "s0596553d"
-str_g = "s0596553e"
-str_h = "s0596553f"
-str_i = "s0596553g"
-str_j = "s0596553h"
+str_a = "s0123456"  # RRRRRRUUUUUULLLDLU
+str_b = "s0596553"  # DDDDDDDDRRRRRRRRRRDRUUU
+str_c = "s0596553a" # RRDLLLLLLLLLLLLLDLUUUU
+str_d = "s0596553b" # RRRRRRRRRRRRRRRRDDDDDLLLLLLULDDDD
+str_e = "s0596553c" # LLDDDRRRRRRRDRUUUUUUUU
+str_f = "s0596553d" # nicht gewinnbar
+str_g = "s0596553e" # URRDLLLLULD
+str_h = "s0596553f" # RRRRRRRRDDDRRRRRRRRRURDDDDDDDDDDDDD
+str_i = "s0596553g" # Glitch, nach Reparatur: LLLLLLLLLLLLLLLLLDDDDDDDDDDDLUUUUUUUUUUUUUU
+str_j = "s0596553h" # LLLLLLLLLLLUUUUUURRRRRRDRUUUUUUUU
 
-s = sokoban.World(str_h)
+s = sokoban.World(str_i)
 
 # Konstanten zur relativen Bestimmung
 LEFT = ABOVE = -1
@@ -103,6 +104,11 @@ def run_vector(a: sokoban.Cell, b: sokoban.Cell, px: int=HIT, py: int=HIT, turn:
             case tx if tx < px: s.left()
             case tx if tx > px: s.right()
 
+        # Beginn, Glitch-Reparatur
+        if s.box.x - s.me.x < HIT: s.left()
+        if s.box.x - s.me.x > HIT: s.right()
+        # Ende, Glitch-Reparatur
+
     while dy != py:
         match dy:
             case dy if dy < py:
@@ -122,6 +128,10 @@ step_out()
 
 if is_winnable():
     while not s.winning():
+        # Beginn, Glitch-Reparatur
+        if target_pos[0] == HIT:
+            target_pos[0] = target_pos[0]-1
+        # Ende, Glitch-Reparatur
         run_vector(s.box, s.me, target_pos[0])
         run_vector(s.target, s.box, 0, 0, True)
 
