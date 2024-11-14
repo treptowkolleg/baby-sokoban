@@ -147,7 +147,7 @@ def run_vector(a: sokoban.Cell, b: sokoban.Cell, px: int=HIT, py: int=HIT):
             case _: break
 
 
-# Spiel beginnen starten
+# Spiel beginnen
 
 # relative Position der Box zum Ziel ermitteln
 target_pos = calculate_rel_pos(s.target, s.box)
