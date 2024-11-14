@@ -12,7 +12,7 @@ str_g = "s0596553e" # URRDLLLLULD
 str_h = "s0596553f" # RRRRRRRRDDDRRRRRRRRRURDDDDDDDDDDDDD
 str_i = "s0596553g" # LLLLLLLLLLLLLLLLLDDDDDDDDDDDLUUUUUUUUUUUUUU
 str_j = "s0596553h" # LLLLLLLLLLLUUUUUURRRRRRDRUUUUUUUU
-str_l = "s0596553q" # nicht gewinnbar
+str_k = "s0596553q" # nicht gewinnbar
 
 # World instantiieren
 s = sokoban.World(str_a,40,20)
