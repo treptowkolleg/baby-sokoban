@@ -1,11 +1,13 @@
-class Cell:
+import sokoban
+
+class Target(sokoban.Cell):
     def __init__(self, x=None, y=None):
-        self.x = x
-        self.y = y
+        super().__init__(x, y)
 
-    def at(self, cell):
-        return self.x==cell.x and self.y==cell.y
+class Box(sokoban.Cell):
+    def __init__(self, x=None, y=None):
+        super().__init__(x, y)
 
-    def move(self,dx,dy):
-        self.x += dx
-        self.y += dy
+class Player(sokoban.Cell):
+    def __init__(self, x=None, y=None):
+        super().__init__(x, y)
