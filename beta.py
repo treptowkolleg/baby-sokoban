@@ -8,12 +8,12 @@ str_b = "s0596553"  # DDDDDDDDRRRRRRRRRRDRUUU
 str_c = "s0596553a" # RRDLLLLLLLLLLLLLDLUUUU
 str_d = "s0596553b" # RRRRRRRRRRRRRRRRDDDDDLLLLLLULDDDD
 str_e = "s0596553c" # LLDDDRRRRRRRDRUUUUUUUU
-str_f = "s0596553d" # nicht gewinnbar
+str_f = "s0596553d" # Dieses Spiel kann leider nicht gewonnen werden
 str_g = "s0596553e" # URRDLLLLULD
 str_h = "s0596553f" # RRRRRRRRDDDRRRRRRRRRURDDDDDDDDDDDDD
 str_i = "s0596553g" # LLLLLLLLLLLLLLLLLDDDDDDDDDDDLUUUUUUUUUUUUUU
 str_j = "s0596553h" # LLLLLLLLLLLUUUUUURRRRRRDRUUUUUUUU
-str_k = "s0596553q" # nicht gewinnbar
+str_k = "s0596553q" # Dieses Spiel kann leider nicht gewonnen werden
 
 # World instantiieren
 s = sokoban.World(str_a)
