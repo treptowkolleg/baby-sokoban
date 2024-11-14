@@ -103,12 +103,11 @@ def run_vector(a: sokoban.Cell, b: sokoban.Cell, px: int=HIT, py: int=HIT, turn:
     if s.has_target(s.box): return
 
     if turn:
-        match ty:
-            case ty if ty < py: s.down()
-            case ty if ty > py: s.up()
-        match tx:
-            case tx if tx < px: s.left()
-            case tx if tx > px: s.right()
+        if ty < py: s.down()
+        if ty > py: s.up()
+        if tx < px: s.left()
+        if tx > px: s.right()
+
         if dy != 0:
             if s.box.x - s.me.x < HIT: s.left()
             if s.box.x - s.me.x > HIT: s.right()
