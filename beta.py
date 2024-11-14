@@ -16,7 +16,7 @@ str_j = "s0596553h" # LLLLLLLLLLLUUUUUURRRRRRDRUUUUUUUU
 str_k = "s0596553q" # nicht gewinnbar
 
 # World instantiieren
-s = sokoban.World(str_h)
+s = sokoban.World(str_a)
 
 # Konstanten zur relativen Bestimmung
 LEFT = ABOVE = -1
@@ -28,7 +28,7 @@ class Target(sokoban.Cell):
     def __init__(self, x=None, y=None):
         super().__init__(x, y)
 
-
+# cast Cell als Target-Instanz
 s.target = Target(s.target.x, s.target.y)
 
 def is_winnable():
@@ -38,14 +38,25 @@ def is_winnable():
     """
     pos = calculate_rel_pos(s.target, s.box)
 
+    # Ziel [Richtung] von Box, Box jedoch am anderen Rand:
     if pos[0] == LEFT and s.box.x == s.w - 1: return False
     if pos[0] == RIGHT and s.box.x == 0: return False
     if pos[1] == ABOVE and s.box.y == s.h - 1: return False
     if pos[1] == BELOW and s.box.y == 0: return False
 
-    # Noch nicht alle Zustände sind erfasst.
-    # Box ganz links, Ziel ganz oben
-    if s.target.y == 0 and s.box.x == 0 and s.target.x != 0: return False
+    # Ziel ganz oben:
+    if s.target.y == 0:
+        # Box links, Ziel nicht
+        if s.box.x == 0 and s.target.x != 0: return False
+        # Box rechts, Ziel nicht
+        if s.box.x == s.w - 1 and s.target.x != s.w - 1 : return False
+
+    # Ziel ganz unten:
+    if s.target.y == s.h - 1:
+        # Box links, Ziel nicht
+        if s.box.x == 0 and s.target.x != 0: return False
+        # Box rechts, Ziel nicht
+        if s.box.x == s.w - 1 and s.target.x != s.w - 1 : return False
     return True
 
 
@@ -81,7 +92,7 @@ def calculate_rel_pos(a: sokoban.Cell, b: sokoban.Cell):
 def step_out():
     """
     Spieler versetzen, falls in einer Linie mit Box. Erforderlich für Vektorlauf.
-    :return: void
+    :return: None
     """
     if s.box.x - s.me.x == HIT:
         if s.box.x > 0: s.left()
@@ -98,7 +109,7 @@ def run_vector(a: sokoban.Cell, b: sokoban.Cell, px: int=HIT, py: int=HIT):
     :param b: Startzelle
     :param px: relative x-Position
     :param py: relative y-Position
-    :return: void
+    :return: None
     """
     tx = dx = a.x - b.x
     ty = dy = a.y - b.y
@@ -141,7 +152,7 @@ def run_vector(a: sokoban.Cell, b: sokoban.Cell, px: int=HIT, py: int=HIT):
 # relative Position der Box zum Ziel ermitteln
 target_pos = calculate_rel_pos(s.target, s.box)
 
-# Kurz warten
+# kurz warten
 sleep(1)
 
 # Spieler ggf. versetzen
