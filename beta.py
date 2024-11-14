@@ -3,7 +3,7 @@ import sokoban
 
 str_a = "s0123456"
 str_b = "s0596553"
-str_c ="s0596553a"
+str_c = "s0596553a"
 str_d = "s0596553b"
 str_e = "s0596553c"
 str_f = "s0596553d"
