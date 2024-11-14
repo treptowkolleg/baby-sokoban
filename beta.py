@@ -26,11 +26,8 @@ def is_winnable():
     """
     pos = calculate_rel_pos(s.target, s.box)
     if pos == ABOVE and s.box.y == s.h - 1: return False
-    # Box ist am oberen Rand, Ziel ist jedoch unterhalb Box
     if pos == BELOW and s.box.y == 0: return False
-    # Box ist am rechten Rand, Ziel ist jedoch links von Box
     if pos == LEFT and s.box.x == s.w - 1: return False
-    # Box ist am linken Rand, Ziel ist jedoch rechts von Box
     if pos == RIGHT and s.box.x == 0: return False
     return True
 
