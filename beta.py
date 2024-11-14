@@ -25,6 +25,7 @@ def is_winnable():
     :return: False, wenn Spiel nicht gewonnen werden kann, ansonsten True
     """
     pos = calculate_rel_pos(s.target, s.box)
+
     # Noch nicht alle Zustände sind erfasst.
     if pos == ABOVE and s.box.y == s.h - 1: return False
     if pos == BELOW and s.box.y == 0: return False
@@ -119,8 +120,6 @@ def run_vector(a: sokoban.Cell, b: sokoban.Cell, px: int=HIT, py: int=HIT, turn:
                 s.down()
                 dy -= 1
             case _: break
-
-
 
 
 # relative Position der Box zum Ziel ermitteln
