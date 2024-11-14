@@ -2,12 +2,38 @@ from time import sleep
 
 import sokoban
 
-s = sokoban.World("s09876543a")
+str_a = "s0123456"
+str_b = "s0596553"
+str_c ="s0596553a"
+str_d = "s0596553b"
+str_e = "s0596553c"
+str_f = "s0596553d"
+str_g = "s0596553e"
+str_h = "s0596553f"
+str_i = "s0596553g"
+str_j = "s0596553h"
+
+s = sokoban.World(str_h)
 
 # Konstanten zur relativen Bestimmung
 LEFT = ABOVE = -1
 RIGHT = BELOW = 1
 HIT = 0
+
+def is_winnable():
+    """
+    Überprüft, ob das aktuelle Spiel gewonnen werden kann.
+    :return: False, wenn Spiel nicht gewonnen werden kann, ansonsten True
+    """
+    pos = calculate_rel_pos(s.target, s.box)
+    if pos == ABOVE and s.box.y == s.h - 1: return False
+    # Box ist am oberen Rand, Ziel ist jedoch unterhalb Box
+    if pos == BELOW and s.box.y == 0: return False
+    # Box ist am rechten Rand, Ziel ist jedoch links von Box
+    if pos == LEFT and s.box.x == s.w - 1: return False
+    # Box ist am linken Rand, Ziel ist jedoch rechts von Box
+    if pos == RIGHT and s.box.x == 0: return False
+    return True
 
 def calculate_rel_pos(a: sokoban.Cell, b: sokoban.Cell):
     """
@@ -33,6 +59,10 @@ def calculate_rel_pos(a: sokoban.Cell, b: sokoban.Cell):
 
     return output
 
+def step_out():
+    rel_pos = calculate_rel_pos(s.box, s.me)
+    if rel_pos[0] == HIT: s.left()
+    if rel_pos[1] == HIT: s.up()
 
 def run_vector(a: sokoban.Cell, b: sokoban.Cell, px: int=HIT, py: int=HIT, turn: bool = False):
     """
@@ -80,8 +110,14 @@ def run_vector(a: sokoban.Cell, b: sokoban.Cell, px: int=HIT, py: int=HIT, turn:
 target_pos = calculate_rel_pos(s.target, s.box)
 
 # Spielablauf starten
-while not s.winning():
-    run_vector(s.box, s.me, target_pos[0])
-    run_vector(s.target, s.box, 0, 0, True)
+step_out()
 
+if is_winnable():
+    while not s.winning():
+        run_vector(s.box, s.me, target_pos[0])
+        run_vector(s.target, s.box, 0, 0, True)
+
+else:
+    print("Dieses Spiel kann leider nicht gewonnen werden.")
+    exit(0)
 
