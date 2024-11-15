@@ -71,19 +71,13 @@ def calculate_rel_pos(b: sokoban.Cell, a: sokoban.Cell):
 
     output = []
 
-    match dx:
-        case dx if dx < HIT: output.append(LEFT)
-        case dx if dx > HIT: output.append(RIGHT)
-        case _:
-            if b.x == 0: output.append(LEFT)
-            else: output.append(RIGHT)
+    if dx < HIT: output.append(LEFT)
+    elif dx > HIT: output.append(RIGHT)
+    else: output.append(LEFT if b.x == 0 else RIGHT)
 
-    match dy:
-        case dy if dy < HIT: output.append(ABOVE)
-        case dy if dy > HIT: output.append(BELOW)
-        case _:
-            if b.y == 0: output.append(ABOVE)
-            else: output.append(BELOW)
+    if dy < HIT: output.append(ABOVE)
+    elif dy > HIT: output.append(BELOW)
+    else: output.append(ABOVE if b.y == 0 else BELOW)
 
     return output
 
