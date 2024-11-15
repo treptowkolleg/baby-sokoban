@@ -44,26 +44,27 @@ def is_winnable():
     pos = calculate_rel_pos(s.target, s.box)
 
     # Ziel [Richtung] von Box, Box jedoch am anderen Rand:
-    if pos[0] == LEFT and s.box.x == s.w - 1: return False
-    if pos[0] == RIGHT and s.box.x == 0: return False
-    if pos[1] == ABOVE and s.box.y == s.h - 1: return False
-    if pos[1] == BELOW and s.box.y == 0: return False
+    if  pos[0] == LEFT and s.box.x == s.w - 1 or \
+        pos[0] == RIGHT and s.box.x == 0 or \
+        pos[1] == ABOVE and s.box.y == s.h - 1 or \
+        pos[1] == BELOW and s.box.y == 0:
+        return False
 
     # Ziel ganz oben oder ganz unten:
-    if s.target.y == 0 or s.target.y == s.h - 1:
-        # Box links, Ziel nicht
-        if s.box.x == 0 and s.target.x != 0: return False
-        # Box rechts, Ziel nicht
-        if s.box.x == s.w - 1 and s.target.x != s.w - 1 : return False
+    if s.target.y in (0, s.h - 1):
+        # Box links bzw. rechts, Ziel jeweils nicht
+        if  s.box.x == 0 and s.target.x != 0 or \
+            s.box.x == s.w - 1 and s.target.x != s.w - 1 :
+            return False
 
     return True
 
 
 def calculate_rel_pos(b: sokoban.Cell, a: sokoban.Cell):
     """
-    Berechnet die relative Position einer Zelle in Bezug auf die Zielzelle.
-    :param a: Zielzelle
+    Berechnet die relative Position einer Zelle A in Bezug zur Zelle B.
     :param b: Zelle, deren Position ermittelt werden soll
+    :param a: Zielzelle
     :return: list[px, py] (siehe Positionskonstanten)
     """
     dx = a.x - b.x
@@ -98,8 +99,8 @@ def step_out():
 def run_vector(b: sokoban.Cell, a: sokoban.Cell, px: int=HIT, py: int=HIT):
     """
     Bewegt Spieler entlang des Vektors b->a.
-    :param a: Zielzelle
     :param b: Startzelle
+    :param a: Zielzelle
     :param px: relative x-Position
     :param py: relative y-Position
     :return: None
