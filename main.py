@@ -1,6 +1,8 @@
 from time import sleep
 
 import sokoban
+import serial
+from serial.tools import list_ports
 
 # Spiel auswählen
 game = 0
@@ -19,6 +21,29 @@ seed_list = [
 "s0596553h",        #  9 LLLLLLLLLLLUUUUUURRRRRRDRUUUUUUUU
 "s0596553q",        # 10 Dieses Spiel kann leider nicht gewonnen werden
 ]
+
+# Serial-Instanz
+serial = serial.Serial()
+
+# Ports prüfen und erstbesten zuweisen
+ports = enumerate(list_ports.comports())
+port = ""
+for n, (p, descriptor, hid) in ports:
+    print(p, descriptor, hid)
+    serial.port = port
+    serial.baudrate = 115200
+    serial.timeout = 1
+    break
+
+# prüfen, ob Port vorhanden
+if serial.port:
+    # Port öffnen und ggf. Daten senden.
+    serial.open()
+    if serial.is_open:
+        message = "0" # 0,1,2,3 → links, oben, rechts, unten
+        message_barry = bytearray.fromhex(message)
+        serial.write(message_barry)
+        serial.flush()
 
 # World instantiieren
 s = sokoban.World(seed_list[game])
